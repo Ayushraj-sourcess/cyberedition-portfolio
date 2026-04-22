@@ -1,10 +1,503 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>CyberEdition</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CYBER EDITION — Digital Presence &amp; Creative Impact</title>
+<meta name="description" content="CYBER EDITION — Student freelancer specialising in content writing, graphic design &amp; social media marketing." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet" />
+
+<!-- Three.js & GSAP (CDN) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+<!-- Portfolio Stylesheet -->
+<link rel="stylesheet" href="style.css" />
 </head>
-<body style="background:black; color:white; text-align:center;">
-  <h1>@cyberedition 🚀</h1>
-  <p>Website is working!</p>
+<body>
+
+<!-- ── Overlay layers ── -->
+<div class="scanlines"></div>
+<div class="noise"></div>
+<div class="cyber-grid"></div>
+
+<!-- ── Custom cursor ── -->
+<div id="cursor">
+  <div id="cursor-ring"></div>
+  <div id="cursor-dot"></div>
+</div>
+
+<!-- ── Loading screen ── -->
+<div id="loader">
+  <div class="loader-text">Initializing Cyber Edition</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-pct" id="loader-pct">0%</div>
+</div>
+
+<!-- ── Three.js canvas (fixed background) ── -->
+<canvas id="hero-canvas"></canvas>
+
+<!-- ════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════ -->
+<nav>
+  <a href="#hero" class="nav-logo">CYBER EDITION</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<section id="hero">
+  <p class="hero-eyebrow" id="hero-eyebrow">// Student · Freelancer · Creator</p>
+
+  <h1 class="hero-title glitch" id="hero-title">CYBER EDITION</h1>
+
+  <p class="hero-tagline" id="hero-tagline">
+    Building Digital Presence &amp; Creative Impact
+  </p>
+
+  <a href="#about" class="cta-btn" id="hero-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M13 9l3 3-3 3M5 12h11M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    Enter Portfolio
+  </a>
+
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ABOUT
+════════════════════════════════════ -->
+<section id="about">
+  <div class="about-grid">
+
+    <!-- Visual column -->
+    <div class="about-visual reveal">
+      <div class="about-avatar">
+        <span class="avatar-icon">⚡</span>
+        <span class="orbit-tag" style="top:10%;left:-30px;">Content Writer</span>
+        <span class="orbit-tag" style="bottom:15%;right:-30px;">Designer</span>
+        <span class="orbit-tag" style="bottom:5%;left:10%;">Social Media</span>
+      </div>
+    </div>
+
+    <!-- Text column -->
+    <div class="about-content reveal">
+      <p class="section-label">// About.sys</p>
+      <h2 class="section-title">Digital <span>Creator</span> &amp; Strategist</h2>
+
+      <p class="about-bio">
+        I'm a student freelancer operating at the intersection of creativity and digital strategy.
+        Under the brand <strong style="color:var(--neon-cyan)">CYBER EDITION</strong>, I craft
+        compelling content, design bold visuals, and build powerful social media presences for
+        brands that want to stand out in the noise.
+      </p>
+      <p class="about-bio" style="margin-top:-12px">
+        From zero to trending — I help clients tell stories that connect, convert, and leave a
+        lasting impression in the digital world.
+      </p>
+
+      <div class="about-stats">
+        <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Projects</span></div>
+        <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Clients</span></div>
+        <div class="stat"><span class="stat-num">2yr+</span><span class="stat-label">Experience</span></div>
+      </div>
+
+      <!-- Quick contact links -->
+      <div class="contact-strip">
+        <a href="https://www.instagram.com/cyberedition?igsh=d3QyNHY3Nm13MDgy" target="_blank" rel="noopener">
+          📸 @cyberedition
+        </a>
+        <a href="https://wa.me/message/N6OOL3LM4I7OP1" target="_blank" rel="noopener">
+          💬 WhatsApp
+        </a>
+        <a href="mailto:cybereedition@gmail.com">
+          ✉️ cybereedition@gmail.com
+        </a>
+        <a href="tel:+919905928022">
+          📞 +91 99059 28022
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SKILLS
+════════════════════════════════════ -->
+<section id="skills">
+  <div class="skills-inner">
+    <p class="section-label reveal">// Skills.dat</p>
+    <h2 class="section-title reveal">Core <span>Capabilities</span></h2>
+
+    <!-- Animated skill rings -->
+    <div class="skill-rings reveal">
+
+      <div class="skill-ring">
+        <div class="ring-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52"
+              stroke="#00d4ff" stroke-dasharray="326.7" stroke-dashoffset="326.7"
+              data-pct="90" id="ring1"/>
+          </svg>
+          <div class="ring-label" style="color:var(--neon-blue)">90%</div>
+        </div>
+        <span class="skill-name">Content Writing</span>
+      </div>
+
+      <div class="skill-ring">
+        <div class="ring-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52"
+              stroke="#b44fff" stroke-dasharray="326.7" stroke-dashoffset="326.7"
+              data-pct="85" id="ring2"/>
+          </svg>
+          <div class="ring-label" style="color:var(--neon-purple)">85%</div>
+        </div>
+        <span class="skill-name">Graphic Design</span>
+      </div>
+
+      <div class="skill-ring">
+        <div class="ring-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52"
+              stroke="#00fff7" stroke-dasharray="326.7" stroke-dashoffset="326.7"
+              data-pct="88" id="ring3"/>
+          </svg>
+          <div class="ring-label" style="color:var(--neon-cyan)">88%</div>
+        </div>
+        <span class="skill-name">Social Media</span>
+      </div>
+
+    </div>
+
+    <!-- Tools -->
+    <div class="tools-grid reveal">
+      <span class="tool-chip">Canva</span>
+      <span class="tool-chip">Photoshop</span>
+      <span class="tool-chip">ChatGPT / AI</span>
+      <span class="tool-chip">Notion</span>
+      <span class="tool-chip">Buffer</span>
+      <span class="tool-chip">Figma</span>
+      <span class="tool-chip">CapCut</span>
+      <span class="tool-chip">Midjourney</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     PROJECTS
+════════════════════════════════════ -->
+<section id="projects">
+  <div class="projects-inner">
+
+    <div class="projects-header">
+      <p class="section-label reveal">// Projects.log</p>
+      <h2 class="section-title reveal">Selected <span>Works</span></h2>
+    </div>
+
+    <div class="carousel-wrap reveal">
+      <div class="carousel-track" id="carousel-track">
+
+        <div class="proj-card glass-corner">
+          <div class="proj-num">01</div>
+          <div class="proj-tag">Content Writing</div>
+          <h3 class="proj-title">Brand Voice Identity Campaign</h3>
+          <p class="proj-desc">Developed a full content strategy and brand voice guide for a D2C skincare startup — blog posts, product copy, and email sequences that drove authentic engagement.</p>
+          <div class="proj-tools">
+            <span class="proj-tool">ChatGPT</span>
+            <span class="proj-tool">Notion</span>
+            <span class="proj-tool">Grammarly</span>
+          </div>
+          <div class="proj-result">↑ 340% organic reach in 3 months</div>
+        </div>
+
+        <div class="proj-card glass-corner">
+          <div class="proj-num">02</div>
+          <div class="proj-tag">Graphic Design</div>
+          <h3 class="proj-title">Neon Brand Identity System</h3>
+          <p class="proj-desc">Designed a complete visual identity for a music collective — logo, color system, social templates, merchandise mockups, and an event poster series.</p>
+          <div class="proj-tools">
+            <span class="proj-tool">Canva Pro</span>
+            <span class="proj-tool">Photoshop</span>
+            <span class="proj-tool">Midjourney</span>
+          </div>
+          <div class="proj-result">↑ 5k new followers post-rebrand</div>
+        </div>
+
+        <div class="proj-card glass-corner">
+          <div class="proj-num">03</div>
+          <div class="proj-tag">Social Media</div>
+          <h3 class="proj-title">Instagram Growth Sprint</h3>
+          <p class="proj-desc">Managed a 90-day Instagram growth campaign for a local restaurant — content calendar, Reels, Stories strategy, and community management that produced explosive organic growth.</p>
+          <div class="proj-tools">
+            <span class="proj-tool">Buffer</span>
+            <span class="proj-tool">CapCut</span>
+            <span class="proj-tool">Canva</span>
+          </div>
+          <div class="proj-result">↑ 0 → 12k followers in 90 days</div>
+        </div>
+
+        <div class="proj-card glass-corner">
+          <div class="proj-num">04</div>
+          <div class="proj-tag">Content Writing</div>
+          <h3 class="proj-title">Tech Blog SEO Series</h3>
+          <p class="proj-desc">Wrote a 20-article SEO content series for a SaaS startup covering AI tools, productivity, and remote work — each 1,500+ words, ranking on page one of Google.</p>
+          <div class="proj-tools">
+            <span class="proj-tool">SEMrush</span>
+            <span class="proj-tool">ChatGPT</span>
+            <span class="proj-tool">WordPress</span>
+          </div>
+          <div class="proj-result">↑ 280% blog traffic in 60 days</div>
+        </div>
+
+        <div class="proj-card glass-corner">
+          <div class="proj-num">05</div>
+          <div class="proj-tag">Graphic Design</div>
+          <h3 class="proj-title">Digital Ad Creative Pack</h3>
+          <p class="proj-desc">Created 40+ ad creatives across formats (Stories, Feed, Reels thumbnails) for a fashion brand launch. A/B tested designs boosted click-through rate significantly.</p>
+          <div class="proj-tools">
+            <span class="proj-tool">Photoshop</span>
+            <span class="proj-tool">Figma</span>
+            <span class="proj-tool">Canva</span>
+          </div>
+          <div class="proj-result">↑ 2.4× higher CTR vs previous</div>
+        </div>
+
+      </div><!-- /carousel-track -->
+    </div><!-- /carousel-wrap -->
+
+    <div class="carousel-controls reveal">
+      <button class="car-btn" id="car-prev" aria-label="Previous">←</button>
+      <button class="car-btn" id="car-next" aria-label="Next">→</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SERVICES
+════════════════════════════════════ -->
+<section id="services">
+  <div class="services-inner">
+
+    <div class="services-header">
+      <p class="section-label reveal">// Services.exe</p>
+      <h2 class="section-title reveal">What I <span>Offer</span></h2>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="serv-card glass-corner reveal">
+        <span class="serv-icon">✍️</span>
+        <h3 class="serv-title">Content Writing</h3>
+        <p class="serv-desc">Words that move people and algorithms. From blog posts to ad copy, I craft content that's authentic, engaging, and built to perform.</p>
+        <ul class="serv-list">
+          <li>Blog &amp; Article Writing</li>
+          <li>Brand Copywriting</li>
+          <li>Email Sequences</li>
+          <li>SEO Content Strategy</li>
+          <li>Caption &amp; Script Writing</li>
+        </ul>
+      </div>
+
+      <div class="serv-card glass-corner reveal">
+        <span class="serv-icon">🎨</span>
+        <h3 class="serv-title">Graphic Design</h3>
+        <p class="serv-desc">Visuals that stop the scroll. Bold, on-brand graphics that communicate your identity and convert across every platform.</p>
+        <ul class="serv-list">
+          <li>Logo &amp; Brand Identity</li>
+          <li>Social Media Templates</li>
+          <li>Ad Creative Design</li>
+          <li>Poster &amp; Flyer Design</li>
+          <li>Presentation Decks</li>
+        </ul>
+      </div>
+
+      <div class="serv-card glass-corner reveal">
+        <span class="serv-icon">📱</span>
+        <h3 class="serv-title">Social Media Mgmt</h3>
+        <p class="serv-desc">From strategy to execution — content calendars, posting, community management, analytics, and full-scale growth campaigns.</p>
+        <ul class="serv-list">
+          <li>Platform Strategy</li>
+          <li>Content Calendar</li>
+          <li>Community Management</li>
+          <li>Analytics &amp; Reporting</li>
+          <li>Growth Campaigns</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════ -->
+<section id="testimonials">
+  <div class="testimonials-inner">
+
+    <div class="testimonials-header">
+      <p class="section-label reveal">// Feedback.json</p>
+      <h2 class="section-title reveal">Client <span>Testimonials</span></h2>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card glass-corner reveal">
+        <p class="testi-text">Working with Cyber Edition completely transformed our Instagram presence. The content was creative, consistent, and the results were beyond what we expected. Professional, responsive, and genuinely talented.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🏪</div>
+          <div>
+            <div class="testi-name">Aryan Mehta</div>
+            <div class="testi-role">// Founder, LocalEats</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card glass-corner reveal">
+        <p class="testi-text">The blog content series Cyber Edition wrote for us was phenomenal — well-researched, perfectly structured, and it actually ranked on Google. Our traffic tripled in two months. Will definitely hire again.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">💻</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-role">// CEO, TechNova SaaS</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card glass-corner reveal">
+        <p class="testi-text">Our brand identity went from generic to stunning. The logo, color palette, and social templates Cyber Edition designed gave us real confidence. We gained 5k followers within weeks of the rebrand!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🎵</div>
+          <div>
+            <div class="testi-name">Zara &amp; Kai</div>
+            <div class="testi-role">// Founders, VOID Collective</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CONTACT
+════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-inner">
+
+    <div class="contact-header">
+      <p class="section-label reveal">// Contact.init</p>
+      <h2 class="section-title reveal">Let's <span>Connect</span></h2>
+      <p class="about-bio reveal" style="text-align:center">
+        Have a project in mind? Reach out and let's build something extraordinary together.
+      </p>
+    </div>
+
+    <!-- Contact form -->
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+
+      <div class="form-row">
+        <div class="field-wrap">
+          <label class="field-label" for="fname">Name</label>
+          <input class="form-input" type="text" id="fname" placeholder="Your name" required />
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="femail">Email</label>
+          <input class="form-input" type="email" id="femail" placeholder="your@email.com" required />
+        </div>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label" for="fsubject">Subject</label>
+        <input class="form-input" type="text" id="fsubject" placeholder="What's this about?" />
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label" for="fmsg">Message</label>
+        <textarea class="form-textarea" id="fmsg" placeholder="Tell me about your project..." required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <span>Transmit Message</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </button>
+
+    </form>
+
+    <!-- Social / contact links -->
+    <div class="contact-social-links reveal">
+
+      <a class="social-pill ig"
+         href="https://www.instagram.com/cyberedition?igsh=d3QyNHY3Nm13MDgy"
+         target="_blank" rel="noopener">
+        📸 @cyberedition
+      </a>
+
+      <a class="social-pill whatsapp"
+         href="https://wa.me/message/N6OOL3LM4I7OP1"
+         target="_blank" rel="noopener">
+        💬 WhatsApp Me
+      </a>
+
+      <a class="social-pill"
+         href="mailto:cybereedition@gmail.com">
+        ✉️ cybereedition@gmail.com
+      </a>
+
+      <a class="social-pill"
+         href="tel:+919905928022">
+        📞 +91 99059 28022
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">CYBER EDITION</div>
+
+  <div class="footer-links">
+    <a href="https://www.instagram.com/cyberedition?igsh=d3QyNHY3Nm13MDgy" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/message/N6OOL3LM4I7OP1" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="mailto:cybereedition@gmail.com">Email</a>
+    <a href="tel:+919905928022">+91 99059 28022</a>
+  </div>
+
+  <div class="footer-copy">© 2025 Cyber Edition · All rights reserved</div>
+</footer>
+
+<!-- ── Portfolio scripts ── -->
+<script src="main.js" defer></script>
+
 </body>
 </html>
