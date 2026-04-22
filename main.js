@@ -254,20 +254,155 @@ window.addEventListener('scroll', () => {
 });
 
 /* ─────────────────────────────────────────────
-   CONTACT FORM
-───────────────────────────────────────────── */
-window.handleSubmit = function(e) {
+   CONTACT FORM — Formspree real submission
+   Messages are delivered to cybereedition@gmail.com
+
+   HOW TO ACTIVATE (one-time, free):
+/* ═══════════════════════════════════════════════════════
+   CONTACT FORM — EmailJS  (free, no backend needed)
+   Sends messages directly to cybereedition@gmail.com
+
+   ── SETUP STEPS (one time, ~5 minutes) ──────────────
+
+   STEP 1 → Go to https://www.emailjs.com
+            Sign Up Free → log in with cybereedition@gmail.com
+
+   STEP 2 → Dashboard → "Email Services" → "Add New Service"
+            Choose Gmail → Connect cybereedition@gmail.com
+            Set Service ID exactly: cyber_edition_service
+            Click "Add Service"
+
+   STEP 3 → Dashboard → "Email Templates" → "Create New Template"
+            Set Template ID exactly: cyber_edition_template
+            Paste this as the template body:
+            ─────────────────────────────
+            New message from your Cyber Edition portfolio!
+
+            Name:    {{from_name}}
+            Email:   {{from_email}}
+            Subject: {{subject}}
+            Message: {{message}}
+            ─────────────────────────────
+            To Email:  cybereedition@gmail.com
+            Reply To:  {{from_email}}
+            Click Save.
+
+   STEP 4 → Dashboard → Account (top right) → General
+            Copy your Public Key (e.g. abc123XYZdef)
+            Paste it below replacing YOUR_PUBLIC_KEY
+
+   STEP 5 → Save this file and re-upload. Done! ✅
+            Free plan = 200 emails/month.
+════════════════════════════════════════════════════════ */
+
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';        // ← Paste your key here
+const EMAILJS_SERVICE_ID  = 'cyber_edition_service';  // ← Must match Step 2
+const EMAILJS_TEMPLATE_ID = 'cyber_edition_template'; // ← Must match Step 3
+
+window.handleSubmit = async function(e) {
   e.preventDefault();
-  const btn  = e.target.querySelector('.submit-btn');
+
+  const form = e.target;
+  const btn  = form.querySelector('.submit-btn');
   const span = btn.querySelector('span');
-  const orig = span.textContent;
 
-  span.textContent = '✓ Message Transmitted!';
-  btn.style.background = 'linear-gradient(90deg,#00fff7,#00d4ff)';
+  const from_name  = form.querySelector('#fname').value.trim();
+  const from_email = form.querySelector('#femail').value.trim();
+  const subject    = form.querySelector('#fsubject').value.trim() || 'Portfolio Enquiry';
+  const message    = form.querySelector('#fmsg').value.trim();
 
-  setTimeout(() => {
-    span.textContent     = orig;
-    btn.style.background = '';
-    e.target.reset();
-  }, 3000);
+  // Not configured yet
+  if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+    showToast('Setup EmailJS first — see steps in main.js', 'warn');
+    return;
+  }
+
+  // Sending state
+  btn.disabled         = true;
+  span.textContent     = 'Transmitting...';
+  btn.style.background = 'linear-gradient(90deg,#1a1a2e,#16213e)';
+
+  try {
+    const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id:  EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id:     EMAILJS_PUBLIC_KEY,
+        template_params: { from_name, from_email, subject, message }
+      })
+    });
+
+    if (res.ok) {
+      span.textContent     = '✓ Message Transmitted!';
+      btn.style.background = 'linear-gradient(90deg,#00fff7,#00d4ff)';
+      showToast('Message sent! I will get back to you soon.', 'success');
+      form.reset();
+      setTimeout(() => {
+        span.textContent     = 'Transmit Message';
+        btn.style.background = '';
+        btn.disabled         = false;
+      }, 4000);
+    } else {
+      throw new Error('Status ' + res.status);
+    }
+
+  } catch (err) {
+    span.textContent     = 'Transmission Failed';
+    btn.style.background = 'linear-gradient(90deg,#ff2d78,#b44fff)';
+    showToast('Could not send. WhatsApp or email me directly!', 'error');
+    setTimeout(() => {
+      span.textContent     = 'Transmit Message';
+      btn.style.background = '';
+      btn.disabled         = false;
+    }, 4000);
+    console.error('EmailJS error:', err);
+  }
 };
+
+/* ─── Cyberpunk toast notification ─── */
+function showToast(msg, type) {
+  const old = document.getElementById('cyber-toast');
+  if (old) old.remove();
+
+  const colors = {
+    success: 'linear-gradient(90deg,#00d4ff,#00fff7)',
+    error:   'linear-gradient(90deg,#ff2d78,#b44fff)',
+    warn:    'linear-gradient(90deg,#ffaa00,#ff6600)'
+  };
+
+  const toast = document.createElement('div');
+  toast.id = 'cyber-toast';
+  toast.textContent = msg;
+  Object.assign(toast.style, {
+    position:     'fixed',
+    bottom:       '32px',
+    left:         '50%',
+    transform:    'translateX(-50%) translateY(80px)',
+    background:   colors[type] || colors.success,
+    color:        '#050508',
+    fontFamily:   "'Share Tech Mono', monospace",
+    fontSize:     '0.82rem',
+    fontWeight:   '700',
+    letterSpacing:'2px',
+    padding:      '14px 28px',
+    borderRadius: '2px',
+    zIndex:       '99999',
+    boxShadow:    '0 8px 32px rgba(0,0,0,0.5)',
+    transition:   'transform 0.4s cubic-bezier(0.4,0,0.2,1)',
+    whiteSpace:   'nowrap',
+    clipPath:     'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)'
+  });
+
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+  });
+  setTimeout(() => {
+    toast.style.transform = 'translateX(-50%) translateY(80px)';
+    setTimeout(() => toast.remove(), 400);
+  }, 5000);
+}
