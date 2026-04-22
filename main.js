@@ -295,7 +295,7 @@ window.addEventListener('scroll', () => {
             Free plan = 200 emails/month.
 ════════════════════════════════════════════════════════ */
 
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';        // ← Paste your key here
+const EMAILJS_PUBLIC_KEY  = '6aopFgoBI0OPcOoxX';        // ← Paste your key here
 const EMAILJS_SERVICE_ID  = 'cyber_edition_service';  // ← Must match Step 2
 const EMAILJS_TEMPLATE_ID = 'cyber_edition_template'; // ← Must match Step 3
 
